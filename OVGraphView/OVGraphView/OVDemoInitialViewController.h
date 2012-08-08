@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OVViewController : UIViewController
+@interface OVDemoInitialViewController : UIViewController
 
 @end

@@ -14,7 +14,9 @@
 		829713DB15D2FDB100F1B0DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713DA15D2FDB100F1B0DF /* main.m */; };
 		829713DF15D2FDB100F1B0DF /* OVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713DE15D2FDB100F1B0DF /* OVAppDelegate.m */; };
 		829713E215D2FDB100F1B0DF /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829713E015D2FDB100F1B0DF /* MainStoryboard.storyboard */; };
-		829713E515D2FDB100F1B0DF /* OVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713E415D2FDB100F1B0DF /* OVViewController.m */; };
+		829713E515D2FDB100F1B0DF /* OVDemoInitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713E415D2FDB100F1B0DF /* OVDemoInitialViewController.m */; };
+		829713EE15D2FEBD00F1B0DF /* OVGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713ED15D2FEBD00F1B0DF /* OVGraphView.m */; };
+		829713F215D2FFA800F1B0DF /* OVGraphDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 829713F015D2FFA800F1B0DF /* OVGraphDemoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,8 +31,12 @@
 		829713DD15D2FDB100F1B0DF /* OVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OVAppDelegate.h; sourceTree = "<group>"; };
 		829713DE15D2FDB100F1B0DF /* OVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OVAppDelegate.m; sourceTree = "<group>"; };
 		829713E115D2FDB100F1B0DF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		829713E315D2FDB100F1B0DF /* OVViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OVViewController.h; sourceTree = "<group>"; };
-		829713E415D2FDB100F1B0DF /* OVViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OVViewController.m; sourceTree = "<group>"; };
+		829713E315D2FDB100F1B0DF /* OVDemoInitialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OVDemoInitialViewController.h; sourceTree = "<group>"; };
+		829713E415D2FDB100F1B0DF /* OVDemoInitialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OVDemoInitialViewController.m; sourceTree = "<group>"; };
+		829713EC15D2FEBD00F1B0DF /* OVGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OVGraphView.h; path = OVGraphView/OVGraphView.h; sourceTree = "<group>"; };
+		829713ED15D2FEBD00F1B0DF /* OVGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OVGraphView.m; path = OVGraphView/OVGraphView.m; sourceTree = "<group>"; };
+		829713EF15D2FFA800F1B0DF /* OVGraphDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphDemoViewController.h; sourceTree = "<group>"; };
+		829713F015D2FFA800F1B0DF /* OVGraphDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphDemoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +56,8 @@
 		829713BF15D2FDB100F1B0DF = {
 			isa = PBXGroup;
 			children = (
-				829713D415D2FDB100F1B0DF /* OVGraphView */,
+				829713EB15D2FE7D00F1B0DF /* OVGraphView */,
+				829713D415D2FDB100F1B0DF /* Demo */,
 				829713CD15D2FDB100F1B0DF /* Frameworks */,
 				829713CB15D2FDB100F1B0DF /* Products */,
 			);
@@ -74,16 +81,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		829713D415D2FDB100F1B0DF /* OVGraphView */ = {
+		829713D415D2FDB100F1B0DF /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				829713DD15D2FDB100F1B0DF /* OVAppDelegate.h */,
 				829713DE15D2FDB100F1B0DF /* OVAppDelegate.m */,
 				829713E015D2FDB100F1B0DF /* MainStoryboard.storyboard */,
-				829713E315D2FDB100F1B0DF /* OVViewController.h */,
-				829713E415D2FDB100F1B0DF /* OVViewController.m */,
+				829713E315D2FDB100F1B0DF /* OVDemoInitialViewController.h */,
+				829713E415D2FDB100F1B0DF /* OVDemoInitialViewController.m */,
+				829713EF15D2FFA800F1B0DF /* OVGraphDemoViewController.h */,
+				829713F015D2FFA800F1B0DF /* OVGraphDemoViewController.m */,
 				829713D515D2FDB100F1B0DF /* Supporting Files */,
 			);
+			name = Demo;
 			path = OVGraphView;
 			sourceTree = "<group>";
 		};
@@ -96,6 +106,15 @@
 				829713DC15D2FDB100F1B0DF /* OVGraphView-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		829713EB15D2FE7D00F1B0DF /* OVGraphView */ = {
+			isa = PBXGroup;
+			children = (
+				829713EC15D2FEBD00F1B0DF /* OVGraphView.h */,
+				829713ED15D2FEBD00F1B0DF /* OVGraphView.m */,
+			);
+			name = OVGraphView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,7 +183,9 @@
 			files = (
 				829713DB15D2FDB100F1B0DF /* main.m in Sources */,
 				829713DF15D2FDB100F1B0DF /* OVAppDelegate.m in Sources */,
-				829713E515D2FDB100F1B0DF /* OVViewController.m in Sources */,
+				829713E515D2FDB100F1B0DF /* OVDemoInitialViewController.m in Sources */,
+				829713EE15D2FEBD00F1B0DF /* OVGraphView.m in Sources */,
+				829713F215D2FFA800F1B0DF /* OVGraphDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

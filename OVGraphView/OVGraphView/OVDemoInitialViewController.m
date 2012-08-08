@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Owen Voorhees. All rights reserved.
 //
 
-#import "OVViewController.h"
+#import "OVDemoInitialViewController.h"
 
-@interface OVViewController ()
+@interface OVDemoInitialViewController ()
 
 @end
 
-@implementation OVViewController
+@implementation OVDemoInitialViewController
 
 - (void)viewDidLoad
 {
