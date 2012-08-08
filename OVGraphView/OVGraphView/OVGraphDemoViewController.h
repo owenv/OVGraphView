@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OVGraphView.h"
 @interface OVGraphDemoViewController : UIViewController
 
 @end
