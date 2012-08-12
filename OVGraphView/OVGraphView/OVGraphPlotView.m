@@ -31,15 +31,17 @@
    // CGContextAddLineToPoint(context, 20, 20);
   //  CGContextStrokePath(context);
     
-    CGContextMoveToPoint(context, self.bounds.origin.x+20, self.bounds.size.height-20);
-    CGContextAddLineToPoint(context, self.bounds.size.width-20, self.bounds.size.height-20);
+    CGContextMoveToPoint(context, self.bounds.origin.x, self.bounds.size.height-20);
+    CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height-20);
     CGContextStrokePath(context);
+    int prevxpoint=0;
+    int prevypoint=0;
     int i=0;
     if (_plotpoints!=nil) {
         for (OVGraphViewPoint *point in _plotpoints) {
             int xpoint;
             int ypoint;
-            xpoint=(spacebetweenpoints*i)+25;
+            xpoint=(spacebetweenpoints*i);
             ypoint=self.frame.size.height-(([point.yvalue intValue]*yscale)+yscale);
           //  NSLog(@"x:%d",xpoint);
           //  NSLog(@"y:%d",ypoint);
@@ -56,8 +58,46 @@
             CGContextRestoreGState(context);
             
             [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20) withFont:[UIFont fontWithName:@"Futura" size:12]];
+            
+            if (i!=0) {
+                CGContextMoveToPoint(context, prevxpoint+5, prevypoint+5);
+                CGContextAddLineToPoint(context, xpoint+5, ypoint+5);
+                CGContextStrokePath(context);
+
+            }
+            prevxpoint=xpoint;
+            prevypoint=ypoint;
             i++;
         }
+        
+        CGContextSaveGState(context);
+        OVGraphViewPoint *first=[_plotpoints objectAtIndex:0];
+        CGContextMoveToPoint(context, 0,self.frame.size.height-(([first.yvalue intValue]*yscale)+yscale)+5 );
+        CGContextAddLineToPoint(context, 0, self.frame.size.height-(([first.yvalue intValue]*yscale)+yscale)+5);
+        int f=0;
+        for (OVGraphViewPoint *thepoint in _plotpoints) {
+            if (f!=0) {
+                CGContextAddLineToPoint(context, (spacebetweenpoints*f)+5, self.frame.size.height-(([thepoint.yvalue intValue]*yscale)+yscale)+5);
+                if (f==[_plotpoints count]-1) {
+                    CGContextAddLineToPoint(context,(spacebetweenpoints*f)+5 , self.frame.size.height-20);
+                    CGContextAddLineToPoint(context, self.frame.size.width, self.frame.size.height-20);
+                }
+                
+            }
+            f++;
+        }
+        
+        
+        CGContextAddLineToPoint(context, self.frame.size.width, 0);
+        CGContextAddLineToPoint(context, 0, 0);
+
+        CGContextClosePath(context);
+        CGContextAddRect(context, CGContextGetClipBoundingBox(context));
+        CGContextEOClip(context);
+        CGContextAddRect(context, CGContextGetClipBoundingBox(context));
+        CGContextSetFillColorWithColor(context, [UIColor colorWithWhite:0.0 alpha:0.1].CGColor);
+        CGContextFillPath(context);
+        CGContextRestoreGState(context);
     }
 }
 -(void)setPlotViewPoints:(NSArray *)points{
