@@ -11,6 +11,9 @@
 @interface OVGraphView : UIScrollView{
     OVGraphPlotView *plotview;
 }
+
 -(id)initWithFrame:(CGRect)frame ContentSize:(CGSize)size;
 -(void)setPoints:(NSArray *)points;
+-(BOOL)shouldreverse;
+@property(nonatomic)BOOL reverse;
 @end

@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "OVGraphViewPoint.h"
+@class OVGraphView;
 @interface OVGraphPlotView : UIView{
     int yscale;
     int spacebetweenpoints;
 }
 -(void)setPlotViewPoints:(NSArray *)points;
 @property(nonatomic)NSArray *plotpoints;
+@property(nonatomic)OVGraphView *delegate;
+
 @end

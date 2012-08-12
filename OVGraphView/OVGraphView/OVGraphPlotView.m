@@ -7,7 +7,7 @@
 //
 
 #import "OVGraphPlotView.h"
-
+#import "OVGraphView.h"
 @implementation OVGraphPlotView
 
 - (id)initWithFrame:(CGRect)frame
@@ -101,7 +101,11 @@
     }
 }
 -(void)setPlotViewPoints:(NSArray *)points{
-    self.plotpoints=[[points reverseObjectEnumerator]allObjects];
+    if ([_delegate shouldreverse]) {
+        self.plotpoints=[[points reverseObjectEnumerator]allObjects];
+    }else{
+        self.plotpoints=points;
+    }
     spacebetweenpoints=self.frame.size.width/[points count];
     int d=0;
     for (OVGraphViewPoint *pt in points) {

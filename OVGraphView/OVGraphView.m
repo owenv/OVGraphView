@@ -28,12 +28,25 @@
         [self setOpaque:NO];
         [self setBackgroundColor:[UIColor whiteColor]];
         plotview=[[OVGraphPlotView alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        plotview.delegate=self;
         [self addSubview:plotview];
+        if (_reverse) {
+            [self scrollRectToVisible:CGRectMake(self.contentSize.width-20, 0, 20, 20) animated:YES];
+
+        }
     }
     return self;
 }
+-(BOOL)shouldreverse{
+    return _reverse;
+}
+
 -(void)setPoints:(NSArray *)points{
     [plotview setPlotViewPoints:points];
+    if (_reverse) {
+        [self scrollRectToVisible:CGRectMake(self.contentSize.width-20, 0, 20, 20) animated:YES];
+        
+    }
 }
 
 // Only override drawRect: if you perform custom drawing.
