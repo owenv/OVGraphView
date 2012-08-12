@@ -8,37 +8,32 @@
 
 #import "OVGraphView.h"
 
-@interface OVGraphView ()
 
-@end
 
 @implementation OVGraphView
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithFrame:frame];
     if (self) {
-        // Custom initialization
+        [self setOpaque:NO];
+        [self setBackgroundColor:[UIColor whiteColor]];
+    }
+    return self;
+}
+-(id)initWithFrame:(CGRect)frame ContentSize:(CGSize)size{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setContentSize:size];
+        [self setOpaque:NO];
+        [self setBackgroundColor:[UIColor whiteColor]];
+        OVGraphPlotView *plotview=[[OVGraphPlotView alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        [self addSubview:plotview];
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect{
 }
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 @end

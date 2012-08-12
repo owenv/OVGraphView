@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OVGraphView : UIView
+@interface OVGraphPlotView : UIView
 
 @end

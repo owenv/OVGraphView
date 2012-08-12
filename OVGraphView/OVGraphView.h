@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface OVGraphView : UIViewController
-
+#import "OVGraphPlotView.h"
+@interface OVGraphView : UIScrollView
+-(id)initWithFrame:(CGRect)frame ContentSize:(CGSize)size;
 @end

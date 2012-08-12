@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    OVGraphView *graphview=[[OVGraphView alloc]initWithFrame:CGRectMake(0, 0, 480, 320)];
+    OVGraphView *graphview=[[OVGraphView alloc]initWithFrame:CGRectMake(0, 0, 480, 300) ContentSize:CGSizeMake(960, 300)];
     self.view=graphview;
     // Do any additional setup after loading the view from its nib.
 }
