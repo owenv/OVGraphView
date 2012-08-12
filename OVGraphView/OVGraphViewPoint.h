@@ -10,11 +10,8 @@
 
 @interface OVGraphViewPoint : NSObject
 
--(id)initWithXValue:(NSNumber *)x YValue:(NSNumber *)y;
--(id)initWithXValue:(NSNumber *)x YValue:(NSNumber *)y XLabel:(NSString *)labelx YLabel:(NSString *)labely;
+-(id)initWithXLabel:(NSString *)x YValue:(NSNumber *)y;
 
-@property(nonatomic)NSNumber *xvalue;
 @property(nonatomic)NSNumber *yvalue;
 @property(nonatomic)NSString *xlabel;
-@property(nonatomic)NSString *ylabel;
 @end

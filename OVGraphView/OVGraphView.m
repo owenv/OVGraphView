@@ -32,7 +32,7 @@
     return self;
 }
 -(void)setPoints:(NSArray *)points{
-    [plotview setPlotpoints:points];
+    [plotview setPlotViewPoints:points];
 }
 
 // Only override drawRect: if you perform custom drawing.
