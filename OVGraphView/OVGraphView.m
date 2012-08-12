@@ -24,6 +24,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setContentSize:size];
+        self.showsHorizontalScrollIndicator=NO;
         [self setOpaque:NO];
         [self setBackgroundColor:[UIColor whiteColor]];
         plotview=[[OVGraphPlotView alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
