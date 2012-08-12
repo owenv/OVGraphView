@@ -26,14 +26,18 @@
         [self setContentSize:size];
         [self setOpaque:NO];
         [self setBackgroundColor:[UIColor whiteColor]];
-        OVGraphPlotView *plotview=[[OVGraphPlotView alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+        plotview=[[OVGraphPlotView alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
         [self addSubview:plotview];
     }
     return self;
+}
+-(void)setPoints:(NSArray *)points{
+    [plotview setPlotpoints:points];
 }
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
+    
 }
 @end

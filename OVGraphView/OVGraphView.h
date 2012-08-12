@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "OVGraphPlotView.h"
-@interface OVGraphView : UIScrollView
+@interface OVGraphView : UIScrollView{
+    OVGraphPlotView *plotview;
+}
 -(id)initWithFrame:(CGRect)frame ContentSize:(CGSize)size;
+-(void)setPoints:(NSArray *)points;
 @end

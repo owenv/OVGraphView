@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface OVGraphPlotView : UIView
-
+-(void)setPlotViewPoints:(NSArray *)points;
+@property(nonatomic)NSArray *plotpoints;
 @end

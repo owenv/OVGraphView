@@ -35,6 +35,9 @@
     CGContextAddLineToPoint(context, self.bounds.size.width-20, self.bounds.size.height-20);
     CGContextStrokePath(context);
 }
+-(void)setPlotViewPoints:(NSArray *)points{
+    self.plotpoints=points;
+}
 
 
 @end
