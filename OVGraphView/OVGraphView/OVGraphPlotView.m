@@ -27,9 +27,9 @@
     CGContextRef context=UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2);
 
-    CGContextMoveToPoint(context, self.bounds.origin.x+20, self.bounds.size.height-20);
-    CGContextAddLineToPoint(context, 20, 20);
-    CGContextStrokePath(context);
+   // CGContextMoveToPoint(context, self.bounds.origin.x+20, self.bounds.size.height-20);
+   // CGContextAddLineToPoint(context, 20, 20);
+  //  CGContextStrokePath(context);
     
     CGContextMoveToPoint(context, self.bounds.origin.x+20, self.bounds.size.height-20);
     CGContextAddLineToPoint(context, self.bounds.size.width-20, self.bounds.size.height-20);
@@ -45,14 +45,22 @@
           //  NSLog(@"y:%d",ypoint);
            // NSLog(@"%d%d",spacebetweenpoints,yscale);
             CGContextAddEllipseInRect(context,CGRectMake(xpoint,ypoint, 10, 10));
-            NSLog(@"%@",point.xlabel);
+            CGContextFillPath(context);
+
+            
+            CGContextSaveGState(context);
+            CGContextMoveToPoint(context, xpoint+5, ypoint);
+            CGContextAddLineToPoint(context, xpoint+5, self.frame.size.height-20);
+            CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:0.0 alpha:0.2].CGColor);
+            CGContextStrokePath(context);
+            CGContextRestoreGState(context);
+            
+            [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20) withFont:[UIFont fontWithName:@"Futura" size:12]];
             i++;
         }
-        CGContextFillPath(context);
     }
 }
 -(void)setPlotViewPoints:(NSArray *)points{
-    NSLog(@"setpoints");
     self.plotpoints=[[points reverseObjectEnumerator]allObjects];
     spacebetweenpoints=self.frame.size.width/[points count];
     int d=0;
