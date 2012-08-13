@@ -26,6 +26,7 @@ Customizations
 ================
 
 graphview.reverse=YES; //reverse the item order and automatically scroll to the right.
+
 graphview.graphcolor=[UIColor ...];//set the color of the graph
 
 License
