@@ -25,9 +25,9 @@ The following steps will create a basic instance of OVGraphView:
 Customizations
 ================
 
-graphview.reverse=YES; //reverse the item order and automatically scroll to the right.
+		graphview.reverse=YES; //reverse the item order and automatically scroll to the right.
 
-graphview.graphcolor=[UIColor ...];//set the color of the graph
+		graphview.graphcolor=[UIColor ...];//set the color of the graph
 
 License
 =========
