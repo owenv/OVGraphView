@@ -15,5 +15,7 @@
 -(id)initWithFrame:(CGRect)frame ContentSize:(CGSize)size;
 -(void)setPoints:(NSArray *)points;
 -(BOOL)shouldreverse;
+-(UIColor *)plotViewColor;
 @property(nonatomic)BOOL reverse;
+@property(nonatomic)UIColor *graphcolor;
 @end

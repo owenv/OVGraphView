@@ -12,8 +12,11 @@
 @interface OVGraphPlotView : UIView{
     int yscale;
     int spacebetweenpoints;
+    UIColor *opaquecolor;
+    UIColor *lightercolor;
+    UIColor *lightestcolor;
 }
--(void)setPlotViewPoints:(NSArray *)points;
+-(void)setPlotViewPoints:(NSArray *)points Reversed:(BOOL)reversebool;
 @property(nonatomic)NSArray *plotpoints;
 @property(nonatomic)OVGraphView *delegate;
 

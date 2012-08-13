@@ -21,12 +21,87 @@
 }
 
 
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
+    opaquecolor=self.delegate.graphcolor;
+    if (self.delegate.graphcolor==nil) {
+        opaquecolor=[UIColor blackColor];
+    }
+    //calculate colors
+    CGFloat *oldComponents = (CGFloat *)CGColorGetComponents([opaquecolor CGColor]);
+	int numComponents = CGColorGetNumberOfComponents([opaquecolor CGColor]);
+	CGFloat newComponents[4];
+    
+	switch (numComponents)
+	{
+		case 2:
+		{
+			//grayscale
+			newComponents[0] = oldComponents[0];
+			newComponents[1] = oldComponents[0];
+			newComponents[2] = oldComponents[0];
+			newComponents[3] = 0.2;
+			break;
+		}
+		case 4:
+		{
+			//RGBA
+			newComponents[0] = oldComponents[0];
+			newComponents[1] = oldComponents[1];
+			newComponents[2] = oldComponents[2];
+			newComponents[3] = 0.2;
+			break;
+		}
+	}
+    
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+	CGColorRef newColor = CGColorCreate(colorSpace, newComponents);
+	CGColorSpaceRelease(colorSpace);
+    
+	lightercolor = [UIColor colorWithCGColor:newColor];
+	CGColorRelease(newColor);
+    
+    CGFloat *theoldComponents = (CGFloat *)CGColorGetComponents([opaquecolor CGColor]);
+	int thenumComponents = CGColorGetNumberOfComponents([opaquecolor CGColor]);
+	CGFloat thenewComponents[4];
+    
+	switch (thenumComponents)
+	{
+		case 2:
+		{
+			//grayscale
+			thenewComponents[0] = theoldComponents[0];
+			thenewComponents[1] = theoldComponents[0];
+			thenewComponents[2] = theoldComponents[0];
+			thenewComponents[3] = 0.1;
+			break;
+		}
+		case 4:
+		{
+			//RGBA
+			thenewComponents[0] = theoldComponents[0];
+			thenewComponents[1] = theoldComponents[1];
+			thenewComponents[2] = theoldComponents[2];
+			thenewComponents[3] = 0.1;
+			break;
+		}
+	}
+    
+	CGColorSpaceRef thecolorSpace = CGColorSpaceCreateDeviceRGB();
+	CGColorRef thenewColor = CGColorCreate(thecolorSpace, thenewComponents);
+	CGColorSpaceRelease(thecolorSpace);
+    
+	lightestcolor= [UIColor colorWithCGColor:thenewColor];
+	CGColorRelease(thenewColor);
+    
+    
+    
+    
     CGContextRef context=UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2);
-
+    CGContextSetStrokeColor(context, CGColorGetComponents(opaquecolor.CGColor));
    // CGContextMoveToPoint(context, self.bounds.origin.x+20, self.bounds.size.height-20);
    // CGContextAddLineToPoint(context, 20, 20);
   //  CGContextStrokePath(context);
@@ -46,23 +121,28 @@
           //  NSLog(@"x:%d",xpoint);
           //  NSLog(@"y:%d",ypoint);
            // NSLog(@"%d%d",spacebetweenpoints,yscale);
+            CGContextSaveGState(context);
+            CGContextSetFillColorWithColor(context, opaquecolor.CGColor);
             CGContextAddEllipseInRect(context,CGRectMake(xpoint,ypoint, 10, 10));
             CGContextFillPath(context);
-
+            CGContextRestoreGState(context);
             
             CGContextSaveGState(context);
             CGContextMoveToPoint(context, xpoint+5, ypoint);
             CGContextAddLineToPoint(context, xpoint+5, self.frame.size.height-20);
-            CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:0.0 alpha:0.2].CGColor);
+            CGContextSetStrokeColorWithColor(context, lightercolor.CGColor);
             CGContextStrokePath(context);
             CGContextRestoreGState(context);
             
             [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20) withFont:[UIFont fontWithName:@"Futura" size:12]];
             
             if (i!=0) {
+                CGContextSaveGState(context);
+                CGContextSetStrokeColorWithColor(context, opaquecolor.CGColor);
                 CGContextMoveToPoint(context, prevxpoint+5, prevypoint+5);
                 CGContextAddLineToPoint(context, xpoint+5, ypoint+5);
                 CGContextStrokePath(context);
+                CGContextRestoreGState(context);
 
             }
             prevxpoint=xpoint;
@@ -95,13 +175,13 @@
         CGContextAddRect(context, CGContextGetClipBoundingBox(context));
         CGContextEOClip(context);
         CGContextAddRect(context, CGContextGetClipBoundingBox(context));
-        CGContextSetFillColorWithColor(context, [UIColor colorWithWhite:0.0 alpha:0.1].CGColor);
+        CGContextSetFillColorWithColor(context, lightestcolor.CGColor);
         CGContextFillPath(context);
         CGContextRestoreGState(context);
     }
 }
--(void)setPlotViewPoints:(NSArray *)points{
-    if ([_delegate shouldreverse]) {
+-(void)setPlotViewPoints:(NSArray *)points Reversed:(BOOL)reversebool{
+    if (reversebool) {
         self.plotpoints=[[points reverseObjectEnumerator]allObjects];
     }else{
         self.plotpoints=points;

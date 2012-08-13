@@ -42,13 +42,15 @@
 }
 
 -(void)setPoints:(NSArray *)points{
-    [plotview setPlotViewPoints:points];
+    [plotview setPlotViewPoints:points Reversed:_reverse];
     if (_reverse) {
         [self scrollRectToVisible:CGRectMake(self.contentSize.width-20, 0, 20, 20) animated:YES];
         
     }
 }
-
+-(UIColor *)plotViewColor{
+    return _graphcolor;
+}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
