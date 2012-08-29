@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OVGraphViewPoint.h"
 @class OVGraphView;
-@interface OVGraphPlotView : UIView{
+@interface OVGraphPlotView : UIView <UIScrollViewDelegate>{
     int yscale;
     int spacebetweenpoints;
     UIColor *opaquecolor;

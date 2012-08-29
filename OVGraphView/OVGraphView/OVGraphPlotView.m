@@ -16,11 +16,15 @@
     if (self) {
         [self setOpaque:NO];
         [self setBackgroundColor:[UIColor whiteColor]];
+        
          }
     return self;
 }
 
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self setNeedsDisplay];
+    NSLog(@"scrolled");
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -105,7 +109,16 @@
    // CGContextMoveToPoint(context, self.bounds.origin.x+20, self.bounds.size.height-20);
    // CGContextAddLineToPoint(context, 20, 20);
   //  CGContextStrokePath(context);
+    CGRect visibleRect;
+    UIScrollView *tempsuperview=(UIScrollView *)[self superview];
+    visibleRect.origin =tempsuperview.contentOffset;
+    visibleRect.size = self.bounds.size;
     
+    CGContextMoveToPoint(context, visibleRect.origin.x+5,0);
+    CGContextAddLineToPoint(context, visibleRect.origin.x+5, self.bounds.size.height-20);
+    CGContextStrokePath(context);
+    
+
     CGContextMoveToPoint(context, self.bounds.origin.x, self.bounds.size.height-20);
     CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height-20);
     CGContextStrokePath(context);
@@ -178,8 +191,27 @@
         CGContextSetFillColorWithColor(context, lightestcolor.CGColor);
         CGContextFillPath(context);
         CGContextRestoreGState(context);
+        
+               
+        
+        
     }
 }
+
+/*-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self setNeedsDisplay];
+}
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self setNeedsDisplay];
+}
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self setNeedsDisplay];
+}
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self setNeedsDisplay]; 
+}
+*/
+
 -(void)setPlotViewPoints:(NSArray *)points Reversed:(BOOL)reversebool{
     if (reversebool) {
         self.plotpoints=[[points reverseObjectEnumerator]allObjects];

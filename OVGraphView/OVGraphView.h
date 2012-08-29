@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OVGraphPlotView.h"
-@interface OVGraphView : UIScrollView{
+@interface OVGraphView : UIScrollView {
     OVGraphPlotView *plotview;
 }
 
