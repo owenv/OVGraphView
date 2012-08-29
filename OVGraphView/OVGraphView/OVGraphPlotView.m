@@ -23,7 +23,6 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self setNeedsDisplay];
-    NSLog(@"scrolled");
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -114,9 +113,16 @@
     visibleRect.origin =tempsuperview.contentOffset;
     visibleRect.size = self.bounds.size;
     
-    CGContextMoveToPoint(context, visibleRect.origin.x+5,0);
-    CGContextAddLineToPoint(context, visibleRect.origin.x+5, self.bounds.size.height-20);
-    CGContextStrokePath(context);
+    if (self.delegate.reverse) {
+               CGContextMoveToPoint(context, visibleRect.origin.x+self.superview.bounds.size.width-20,0);
+        CGContextAddLineToPoint(context,visibleRect.origin.x+self.superview.bounds.size.width-20, self.bounds.size.height-20);
+        NSLog(@"%f",self.bounds.size.width);
+        CGContextStrokePath(context);
+    }else{
+        CGContextMoveToPoint(context, visibleRect.origin.x+5,0);
+        CGContextAddLineToPoint(context, visibleRect.origin.x+5, self.bounds.size.height-20);
+        CGContextStrokePath(context);
+    }
     
 
     CGContextMoveToPoint(context, self.bounds.origin.x, self.bounds.size.height-20);
