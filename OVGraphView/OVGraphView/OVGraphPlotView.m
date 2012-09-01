@@ -25,6 +25,25 @@
     [self setNeedsDisplay];
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+   }
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+   }
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+
+}
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
+    int tempcoord=[thetouch locationInView:self].x;
+    if (ABS(visiblexcoordinate-tempcoord<20)) {
+        visiblexcoordinate=[thetouch locationInView:self].x;
+        [self setNeedsDisplay];
+        
+    }
+
+
+}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
@@ -108,22 +127,18 @@
    // CGContextMoveToPoint(context, self.bounds.origin.x+20, self.bounds.size.height-20);
    // CGContextAddLineToPoint(context, 20, 20);
   //  CGContextStrokePath(context);
+    
+    //draw axis
     CGRect visibleRect;
     UIScrollView *tempsuperview=(UIScrollView *)[self superview];
     visibleRect.origin =tempsuperview.contentOffset;
     visibleRect.size = self.bounds.size;
     
-    if (self.delegate.reverse) {
-               CGContextMoveToPoint(context, visibleRect.origin.x+self.superview.bounds.size.width-20,0);
-        CGContextAddLineToPoint(context,visibleRect.origin.x+self.superview.bounds.size.width-20, self.bounds.size.height-20);
-        NSLog(@"%f",self.bounds.size.width);
-        CGContextStrokePath(context);
-    }else{
-        CGContextMoveToPoint(context, visibleRect.origin.x+5,0);
-        CGContextAddLineToPoint(context, visibleRect.origin.x+5, self.bounds.size.height-20);
-        CGContextStrokePath(context);
-    }
+    CGContextMoveToPoint(context, visiblexcoordinate,0);
+    CGContextAddLineToPoint(context,visiblexcoordinate, self.bounds.size.height-20);
+    CGContextStrokePath(context);
     
+       
 
     CGContextMoveToPoint(context, self.bounds.origin.x, self.bounds.size.height-20);
     CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height-20);
