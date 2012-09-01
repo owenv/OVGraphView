@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class OVGraphPlotView;
 @interface OVGraphIndicatorView : UIView
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OVGraphViewPoint.h"
-#import "OVGraphIndicatorView"
+#import "OVGraphIndicatorView.h"
 @class OVGraphView;
 @interface OVGraphPlotView : UIView <UIScrollViewDelegate>{
     int yscale;
@@ -17,6 +17,8 @@
     UIColor *lightercolor;
     UIColor *lightestcolor;
     int visiblexcoordinate;
+    OVGraphIndicatorView *indicator;
+    BOOL dragging;
 }
 -(void)setPlotViewPoints:(NSArray *)points Reversed:(BOOL)reversebool;
 @property(nonatomic)NSArray *plotpoints;

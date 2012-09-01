@@ -15,8 +15,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setOpaque:NO];
+        dragging=NO;
         [self setBackgroundColor:[UIColor whiteColor]];
-        
+        indicator=[[OVGraphIndicatorView alloc]initWithFrame:CGRectMake(self.bounds.size.width-240, 0, 40,self.bounds.size.height)];
+        [self addSubview:indicator];
          }
     return self;
 }
@@ -26,24 +28,30 @@
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-   }
+    UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
+    if (CGRectContainsPoint(indicator.frame, [thetouch locationInView:self])) {
+        dragging=YES;
+
+       // visiblexcoordinate=[thetouch locationInView:self].x;
+        //[indicator setFrame:CGRectMake(visiblexcoordinate, 0, 40, self.bounds.size.height)];
+    }
+}
+
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    
+    dragging=NO;
    }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-
+    dragging=NO;
 }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
-    int tempcoord=[thetouch locationInView:self].x;
-    if (ABS(visiblexcoordinate-tempcoord<20)) {
+    if (dragging) {
         visiblexcoordinate=[thetouch locationInView:self].x;
-        [self setNeedsDisplay];
-        
+
+        [indicator setFrame:CGRectMake(visiblexcoordinate, 0, 40, self.bounds.size.height)];
     }
-
-
 }
+ 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
