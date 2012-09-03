@@ -31,7 +31,9 @@
     UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
     if (CGRectContainsPoint(indicator.frame, [thetouch locationInView:self])) {
         dragging=YES;
+        visiblexcoordinate=[thetouch locationInView:self].x;
 
+ [UIView animateWithDuration:0.5 animations:^{[indicator setFrame:CGRectMake(visiblexcoordinate-20, 0, 40, self.bounds.size.height)];}];
        // visiblexcoordinate=[thetouch locationInView:self].x;
         //[indicator setFrame:CGRectMake(visiblexcoordinate, 0, 40, self.bounds.size.height)];
     }
@@ -39,19 +41,43 @@
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
     dragging=NO;
-   }
+      }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     dragging=NO;
-}
+   }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
-    if (dragging) {
-        visiblexcoordinate=[thetouch locationInView:self].x;
+    visiblexcoordinate=[thetouch locationInView:self].x;
 
-        [indicator setFrame:CGRectMake(visiblexcoordinate, 0, 40, self.bounds.size.height)];
+    if (dragging) {
+        [indicator setFrame:CGRectMake(visiblexcoordinate-20, 0, 40, self.bounds.size.height)];
+       
     }
+    CGRect visibleRect;
+    UIScrollView *tempsuperview=(UIScrollView *)[self superview];
+    visibleRect.origin =tempsuperview.contentOffset;
+    visibleRect.size = self.bounds.size;
+
+    if (visiblexcoordinate-tempsuperview.contentOffset.x<(0.25*visibleRect.size.width)) {
+        [tempsuperview scrollRectToVisible:CGRectMake(0, 0, tempsuperview.frame.size.width, tempsuperview.frame.size.height) animated:YES];
+            }
+    if (visiblexcoordinate-tempsuperview.contentOffset.x>(0.25*visibleRect.size.width)) {
+        [tempsuperview scrollRectToVisible:CGRectMake(tempsuperview.contentSize.width, 0, tempsuperview.frame.size.width, tempsuperview.frame.size.height) animated:YES];
+    }
+
+    
 }
- 
+-(void)scrollgraph{
+    UIScrollView *tempsuperview=(UIScrollView *)[self superview];
+
+     [tempsuperview scrollRectToVisible:CGRectMake(tempsuperview.contentOffset.x-5, 0, self.superview.frame.size.width, self.superview.frame.size.height) animated:YES];
+}
+-(void)reversescrollgraph{
+    NSLog(@"reversetimer");
+    UIScrollView *tempsuperview=(UIScrollView *)[self superview];
+    
+    [tempsuperview scrollRectToVisible:CGRectMake(tempsuperview.contentOffset.x+5, 0, self.superview.frame.size.width, self.superview.frame.size.height) animated:YES];
+}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
@@ -142,9 +168,9 @@
     visibleRect.origin =tempsuperview.contentOffset;
     visibleRect.size = self.bounds.size;
     
-    CGContextMoveToPoint(context, visiblexcoordinate,0);
-    CGContextAddLineToPoint(context,visiblexcoordinate, self.bounds.size.height-20);
-    CGContextStrokePath(context);
+   // CGContextMoveToPoint(context, visiblexcoordinate,0);
+    //CGContextAddLineToPoint(context,visiblexcoordinate, self.bounds.size.height-20);
+ //   CGContextStrokePath(context);
     
        
 
