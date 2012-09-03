@@ -19,10 +19,14 @@
     int visiblexcoordinate;
     OVGraphIndicatorView *indicator;
     BOOL dragging;
+    NSTimer *continuousscrolltimer;
+    NSTimer *oppcontinuousscrolltimer;
+    float scrollrate;
    
 
 }
-
+-(void)scrollleft;
+-(void)scrollright;
 -(void)setPlotViewPoints:(NSArray *)points Reversed:(BOOL)reversebool;
 @property(nonatomic)NSArray *plotpoints;
 @property(nonatomic)OVGraphView *delegate;

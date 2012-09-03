@@ -41,14 +41,25 @@
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
     dragging=NO;
+    [continuousscrolltimer invalidate];
+    continuousscrolltimer=nil;
+    [oppcontinuousscrolltimer invalidate];
+    oppcontinuousscrolltimer=nil;
+    scrollrate=0;
+
       }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     dragging=NO;
+    [continuousscrolltimer invalidate];
+    continuousscrolltimer=nil;
+    [oppcontinuousscrolltimer invalidate];
+    oppcontinuousscrolltimer=nil;
+    scrollrate=0;
+
    }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
     visiblexcoordinate=[thetouch locationInView:self].x;
-
     if (dragging) {
         [indicator setFrame:CGRectMake(visiblexcoordinate-20, 0, 40, self.bounds.size.height)];
        
@@ -57,27 +68,94 @@
     UIScrollView *tempsuperview=(UIScrollView *)[self superview];
     visibleRect.origin =tempsuperview.contentOffset;
     visibleRect.size = self.bounds.size;
+    int locinsuper=[thetouch locationInView:tempsuperview].x;
 
-    if (visiblexcoordinate-tempsuperview.contentOffset.x<(0.25*visibleRect.size.width)) {
-        [tempsuperview scrollRectToVisible:CGRectMake(0, 0, tempsuperview.frame.size.width, tempsuperview.frame.size.height) animated:YES];
-            }
-    if (visiblexcoordinate-tempsuperview.contentOffset.x>(0.25*visibleRect.size.width)) {
-        [tempsuperview scrollRectToVisible:CGRectMake(tempsuperview.contentSize.width, 0, tempsuperview.frame.size.width, tempsuperview.frame.size.height) animated:YES];
+    if (locinsuper-tempsuperview.contentOffset.x<tempsuperview.frame.size.width/4) {
+       
+        if (continuousscrolltimer==nil) {
+            scrollrate=20;
+        continuousscrolltimer=[NSTimer scheduledTimerWithTimeInterval:.45 target:self selector:@selector(scrollleft) userInfo:nil repeats:YES];
+        }
+        }else{
+        [continuousscrolltimer invalidate];
+        continuousscrolltimer=nil;
+        }
+    
+    
+    
+    
+    if (locinsuper-tempsuperview.contentOffset.x>(tempsuperview.frame.size.width/4)*3) {
+       
+        if (oppcontinuousscrolltimer==nil) {
+            scrollrate=20;
+            oppcontinuousscrolltimer=[NSTimer scheduledTimerWithTimeInterval:0.45 target:self selector:@selector(scrollright) userInfo:nil repeats:YES];
+        }
+
+    }else{
+        [oppcontinuousscrolltimer invalidate];
+        oppcontinuousscrolltimer=nil;
+
     }
 
     
 }
--(void)scrollgraph{
+-(void)scrollleft{
+    CGRect visibleRect;
     UIScrollView *tempsuperview=(UIScrollView *)[self superview];
+    if (tempsuperview.contentOffset.x<5) {
+        [continuousscrolltimer invalidate];
+        continuousscrolltimer=nil;
+        scrollrate=0;
 
-     [tempsuperview scrollRectToVisible:CGRectMake(tempsuperview.contentOffset.x-5, 0, self.superview.frame.size.width, self.superview.frame.size.height) animated:YES];
+        return;
+    }
+    if (tempsuperview.contentOffset.x>tempsuperview.contentSize.width) {
+        [continuousscrolltimer invalidate];
+        continuousscrolltimer=nil;
+        scrollrate=0;
+
+        return;
+    }
+    visibleRect.origin =tempsuperview.contentOffset;
+    visibleRect.size = self.bounds.size;
+        
+   // [tempsuperview setContentOffset:CGPointMake(tempsuperview.contentOffset.x-5, 0) animated:NO];
+    [UIView animateWithDuration:0.5 delay:0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveLinear) animations:^{    [tempsuperview setContentOffset:CGPointMake(tempsuperview.contentOffset.x-scrollrate, 0) animated:NO];
+        [indicator setFrame:CGRectMake(indicator.frame.origin.x-scrollrate, 0, 40, self.bounds.size.height)];
+
+    } completion:NULL];
+    scrollrate=scrollrate+5;
+    if (tempsuperview.contentOffset.x<0) {
+        [tempsuperview setContentOffset:CGPointMake(0, 0)];
+    }
 }
--(void)reversescrollgraph{
-    NSLog(@"reversetimer");
+-(void)scrollright{
+    CGRect visibleRect;
     UIScrollView *tempsuperview=(UIScrollView *)[self superview];
-    
-    [tempsuperview scrollRectToVisible:CGRectMake(tempsuperview.contentOffset.x+5, 0, self.superview.frame.size.width, self.superview.frame.size.height) animated:YES];
+    if (tempsuperview.contentOffset.x<0) {
+        [oppcontinuousscrolltimer invalidate];
+        oppcontinuousscrolltimer=nil;
+        scrollrate=0;
+
+        return;
+    }
+    if (tempsuperview.contentOffset.x>tempsuperview.contentSize.width-tempsuperview.frame.size.width) {
+        [oppcontinuousscrolltimer invalidate];
+        oppcontinuousscrolltimer=nil;
+        scrollrate=0;
+
+        return;
+    }
+    visibleRect.origin =tempsuperview.contentOffset;
+    visibleRect.size = self.bounds.size;
+    [UIView animateWithDuration:0.5 delay:0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveLinear) animations:^{    [tempsuperview setContentOffset:CGPointMake(tempsuperview.contentOffset.x+scrollrate, 0) animated:NO];
+        [indicator setFrame:CGRectMake(indicator.frame.origin.x+scrollrate, 0, 40, self.bounds.size.height)];
+
+} completion:NULL];
+    scrollrate=scrollrate+5;
+
 }
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect{
