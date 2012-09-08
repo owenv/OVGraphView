@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 @class OVGraphPlotView;
-@interface OVGraphIndicatorView : UIView
+@interface OVGraphIndicatorView : UIView{
+    
+}
+@property(nonatomic)UILabel *valuelabel;
 
 @end

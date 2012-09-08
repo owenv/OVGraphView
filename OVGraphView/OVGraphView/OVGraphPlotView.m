@@ -37,6 +37,7 @@
        // visiblexcoordinate=[thetouch locationInView:self].x;
         //[indicator setFrame:CGRectMake(visiblexcoordinate, 0, 40, self.bounds.size.height)];
     }
+    [self setNeedsDisplay];
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -46,6 +47,7 @@
     [oppcontinuousscrolltimer invalidate];
     oppcontinuousscrolltimer=nil;
     scrollrate=0;
+    [self setNeedsDisplay];
 
       }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -55,6 +57,7 @@
     [oppcontinuousscrolltimer invalidate];
     oppcontinuousscrolltimer=nil;
     scrollrate=0;
+    [self setNeedsDisplay];
 
    }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -97,7 +100,8 @@
 
     }
 
-    
+    [self setNeedsDisplay];
+ 
 }
 -(void)scrollleft{
     CGRect visibleRect;
@@ -260,9 +264,21 @@
     int i=0;
     if (_plotpoints!=nil) {
         for (OVGraphViewPoint *point in _plotpoints) {
+            int indicatorposition=indicator.frame.origin.x+20;
             int xpoint;
             int ypoint;
             xpoint=(spacebetweenpoints*i);
+            
+            
+            if (abs(indicatorposition-xpoint)<=0.5*spacebetweenpoints) {
+                NSLog(@"drawing value");
+                NSString *labelstring=[NSString stringWithFormat:@"%@",point.yvalue];
+                indicator.valuelabel.text=labelstring;
+               // [labelstring drawAtPoint:CGPointMake(indicator.frame.origin.x, 20) withFont:[UIFont fontWithName:@"Futura" size:12]];
+            }
+            
+            
+            
             ypoint=self.frame.size.height-(([point.yvalue intValue]*yscale)+yscale);
           //  NSLog(@"x:%d",xpoint);
           //  NSLog(@"y:%d",ypoint);

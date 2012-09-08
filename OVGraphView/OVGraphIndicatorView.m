@@ -16,6 +16,11 @@
     if (self) {
         self.backgroundColor=[UIColor clearColor];
         self.opaque=NO;
+        _valuelabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height/8)];
+        [_valuelabel setFont:[UIFont fontWithName:@"Futura" size:24]];
+        [_valuelabel setTextAlignment:UITextAlignmentCenter];
+        [_valuelabel setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:_valuelabel];
         // Initialization code
     }
     return self;
