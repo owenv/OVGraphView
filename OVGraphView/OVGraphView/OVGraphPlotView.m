@@ -271,7 +271,6 @@
             
             
             if (abs(indicatorposition-xpoint)<=0.5*spacebetweenpoints) {
-                NSLog(@"drawing value");
                 NSString *labelstring=[NSString stringWithFormat:@"%@",point.yvalue];
                 indicator.valuelabel.text=labelstring;
                // [labelstring drawAtPoint:CGPointMake(indicator.frame.origin.x, 20) withFont:[UIFont fontWithName:@"Futura" size:12]];
