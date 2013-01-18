@@ -157,6 +157,10 @@
             CGContextRestoreGState(context);
             
             [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20) withFont:[UIFont fontWithName:@"Futura" size:12]];
+            int yvalueoffset;
+            yvalueoffset=0-20;
+            
+            [[point.yvalue stringValue] drawAtPoint:CGPointMake(xpoint,ypoint+yvalueoffset) withFont:[UIFont fontWithName:@"Futura" size:12]];
             
             if (i!=0) {
                 CGContextSaveGState(context);
