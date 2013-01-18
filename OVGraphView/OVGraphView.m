@@ -29,7 +29,7 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         plotview=[[OVGraphPlotView alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
         plotview.delegate=self;
-        self.scrollEnabled=NO;
+        self.scrollEnabled=YES;
         self.delegate=plotview;
         [self addSubview:plotview];
         if (_reverse) {

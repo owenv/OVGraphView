@@ -17,147 +17,13 @@
         [self setOpaque:NO];
         dragging=NO;
         [self setBackgroundColor:[UIColor whiteColor]];
-        indicator=[[OVGraphIndicatorView alloc]initWithFrame:CGRectMake(self.bounds.size.width-240, 0, 40,self.bounds.size.height)];
-        [self addSubview:indicator];
+       
          }
     return self;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self setNeedsDisplay];
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
-    if (CGRectContainsPoint(indicator.frame, [thetouch locationInView:self])) {
-        dragging=YES;
-        visiblexcoordinate=[thetouch locationInView:self].x;
-
- [UIView animateWithDuration:0.5 animations:^{[indicator setFrame:CGRectMake(visiblexcoordinate-20, 0, 40, self.bounds.size.height)];}];
-       // visiblexcoordinate=[thetouch locationInView:self].x;
-        //[indicator setFrame:CGRectMake(visiblexcoordinate, 0, 40, self.bounds.size.height)];
-    }
-    [self setNeedsDisplay];
-}
-
--(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
-    dragging=NO;
-    [continuousscrolltimer invalidate];
-    continuousscrolltimer=nil;
-    [oppcontinuousscrolltimer invalidate];
-    oppcontinuousscrolltimer=nil;
-    scrollrate=0;
-    [self setNeedsDisplay];
-
-      }
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
-    dragging=NO;
-    [continuousscrolltimer invalidate];
-    continuousscrolltimer=nil;
-    [oppcontinuousscrolltimer invalidate];
-    oppcontinuousscrolltimer=nil;
-    scrollrate=0;
-    [self setNeedsDisplay];
-
-   }
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
-    UITouch *thetouch=[[touches allObjects]objectAtIndex:0];
-    visiblexcoordinate=[thetouch locationInView:self].x;
-    if (dragging) {
-        [indicator setFrame:CGRectMake(visiblexcoordinate-20, 0, 40, self.bounds.size.height)];
-       
-    }
-    CGRect visibleRect;
-    UIScrollView *tempsuperview=(UIScrollView *)[self superview];
-    visibleRect.origin =tempsuperview.contentOffset;
-    visibleRect.size = self.bounds.size;
-    int locinsuper=[thetouch locationInView:tempsuperview].x;
-
-    if (locinsuper-tempsuperview.contentOffset.x<tempsuperview.frame.size.width/4) {
-       
-        if (continuousscrolltimer==nil) {
-            scrollrate=20;
-        continuousscrolltimer=[NSTimer scheduledTimerWithTimeInterval:.45 target:self selector:@selector(scrollleft) userInfo:nil repeats:YES];
-        }
-        }else{
-        [continuousscrolltimer invalidate];
-        continuousscrolltimer=nil;
-        }
-    
-    
-    
-    
-    if (locinsuper-tempsuperview.contentOffset.x>(tempsuperview.frame.size.width/4)*3) {
-       
-        if (oppcontinuousscrolltimer==nil) {
-            scrollrate=20;
-            oppcontinuousscrolltimer=[NSTimer scheduledTimerWithTimeInterval:0.45 target:self selector:@selector(scrollright) userInfo:nil repeats:YES];
-        }
-
-    }else{
-        [oppcontinuousscrolltimer invalidate];
-        oppcontinuousscrolltimer=nil;
-
-    }
-
-    [self setNeedsDisplay];
- 
-}
--(void)scrollleft{
-    CGRect visibleRect;
-    UIScrollView *tempsuperview=(UIScrollView *)[self superview];
-    if (tempsuperview.contentOffset.x<5) {
-        [continuousscrolltimer invalidate];
-        continuousscrolltimer=nil;
-        scrollrate=0;
-
-        return;
-    }
-    if (tempsuperview.contentOffset.x>tempsuperview.contentSize.width) {
-        [continuousscrolltimer invalidate];
-        continuousscrolltimer=nil;
-        scrollrate=0;
-
-        return;
-    }
-    visibleRect.origin =tempsuperview.contentOffset;
-    visibleRect.size = self.bounds.size;
-        
-   // [tempsuperview setContentOffset:CGPointMake(tempsuperview.contentOffset.x-5, 0) animated:NO];
-    [UIView animateWithDuration:0.5 delay:0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveLinear) animations:^{    [tempsuperview setContentOffset:CGPointMake(tempsuperview.contentOffset.x-scrollrate, 0) animated:NO];
-        [indicator setFrame:CGRectMake(indicator.frame.origin.x-scrollrate, 0, 40, self.bounds.size.height)];
-
-    } completion:NULL];
-    scrollrate=scrollrate+5;
-    if (tempsuperview.contentOffset.x<0) {
-        [tempsuperview setContentOffset:CGPointMake(0, 0)];
-    }
-}
--(void)scrollright{
-    CGRect visibleRect;
-    UIScrollView *tempsuperview=(UIScrollView *)[self superview];
-    if (tempsuperview.contentOffset.x<0) {
-        [oppcontinuousscrolltimer invalidate];
-        oppcontinuousscrolltimer=nil;
-        scrollrate=0;
-
-        return;
-    }
-    if (tempsuperview.contentOffset.x>tempsuperview.contentSize.width-tempsuperview.frame.size.width) {
-        [oppcontinuousscrolltimer invalidate];
-        oppcontinuousscrolltimer=nil;
-        scrollrate=0;
-
-        return;
-    }
-    visibleRect.origin =tempsuperview.contentOffset;
-    visibleRect.size = self.bounds.size;
-    [UIView animateWithDuration:0.5 delay:0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveLinear) animations:^{    [tempsuperview setContentOffset:CGPointMake(tempsuperview.contentOffset.x+scrollrate, 0) animated:NO];
-        [indicator setFrame:CGRectMake(indicator.frame.origin.x+scrollrate, 0, 40, self.bounds.size.height)];
-
-} completion:NULL];
-    scrollrate=scrollrate+5;
-
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -264,17 +130,12 @@
     int i=0;
     if (_plotpoints!=nil) {
         for (OVGraphViewPoint *point in _plotpoints) {
-            int indicatorposition=indicator.frame.origin.x+20;
             int xpoint;
             int ypoint;
             xpoint=(spacebetweenpoints*i);
             
             
-            if (abs(indicatorposition-xpoint)<=0.5*spacebetweenpoints) {
-                NSString *labelstring=[NSString stringWithFormat:@"%@",point.yvalue];
-                indicator.valuelabel.text=labelstring;
-               // [labelstring drawAtPoint:CGPointMake(indicator.frame.origin.x, 20) withFont:[UIFont fontWithName:@"Futura" size:12]];
-            }
+            
             
             
             
