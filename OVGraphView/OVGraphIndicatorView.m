@@ -36,49 +36,53 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    //// General Declarations
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Color Declarations
-    UIColor* gradientColor = [UIColor colorWithRed: 0.79 green: 0.79 blue: 0.79 alpha: 1];
     UIColor* lmrBlue = [UIColor colorWithRed: 0.31 green: 0.73 blue: 0.78 alpha: 1];
-    
-    //// Gradient Declarations
-    NSArray* indicatorgradientColors = [NSArray arrayWithObjects:
-                                        (id)gradientColor.CGColor,
-                                        (id)[UIColor colorWithRed: 0.9 green: 0.9 blue: 0.9 alpha: 1].CGColor,
-                                        (id)[UIColor whiteColor].CGColor, nil];
-    CGFloat indicatorgradientLocations[] = {0, 0.88, 1};
-    CGGradientRef indicatorgradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)indicatorgradientColors, indicatorgradientLocations);
-    
-    //// Shadow Declarations
-    UIColor* subtleshadow = [UIColor lightGrayColor];
-    CGSize subtleshadowOffset = CGSizeMake(1, 1);
-    CGFloat subtleshadowBlurRadius = 1;
-    
-    
-    //// Rounded Rectangle Drawing
-    UIBezierPath* roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 5, 40, 25) cornerRadius: 4];
-    CGContextSaveGState(context);
-    CGContextSetShadowWithColor(context, subtleshadowOffset, subtleshadowBlurRadius, subtleshadow.CGColor);
-    CGContextBeginTransparencyLayer(context, NULL);
-    [roundedRectanglePath addClip];
-    CGContextDrawLinearGradient(context, indicatorgradient, CGPointMake(20, 5), CGPointMake(20, 30), 0);
-    CGContextEndTransparencyLayer(context);
-    CGContextRestoreGState(context);
-    
-    
+
+    //// Color Declarations
+    UIColor* graphIndicator = [UIColor colorWithRed: 0.873 green: 0.146 blue: 0.08 alpha: 1];
     
     //// Rectangle Drawing
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(19, 31, 2, 250)];
-    [lmrBlue setFill];
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(19, 37, 8, 227)];
+    [graphIndicator setFill];
     [rectanglePath fill];
     
     
-    //// Cleanup
-    CGGradientRelease(indicatorgradient);
-    CGColorSpaceRelease(colorSpace);}
+    //// Oval Drawing
+    UIBezierPath* ovalPath = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(9.5, 4.5, 27, 27)];
+    [graphIndicator setFill];
+    [ovalPath fill];
+    
+    
+    //// Polygon Drawing
+    UIBezierPath* polygonPath = [UIBezierPath bezierPath];
+    [polygonPath moveToPoint: CGPointMake(23, 44.5)];
+    [polygonPath addLineToPoint: CGPointMake(11.31, 24.25)];
+    [polygonPath addLineToPoint: CGPointMake(34.69, 24.25)];
+    [polygonPath closePath];
+    [graphIndicator setFill];
+    [polygonPath fill];
+    
+    
+    //// Oval 2 Drawing
+    UIBezierPath* oval2Path = [UIBezierPath bezierPathWithOvalInRect: CGRectMake(9.5, 266.5, 27, 27)];
+    [graphIndicator setFill];
+    [oval2Path fill];
+    
+    
+    //// Polygon 2 Drawing
+    UIBezierPath* polygon2Path = [UIBezierPath bezierPath];
+    [polygon2Path moveToPoint: CGPointMake(23, 252.5)];
+    [polygon2Path addLineToPoint: CGPointMake(11.31, 272.75)];
+    [polygon2Path addLineToPoint: CGPointMake(34.69, 272.75)];
+    [polygon2Path closePath];
+    [graphIndicator setFill];
+    [polygon2Path fill];
+    
+    
 
+    
+    
+}
 
 @end
