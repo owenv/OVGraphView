@@ -28,6 +28,79 @@
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
+-(void)drawYIndicatorAtPointX:(int)x Y:(int)y{
+    //// General Declarations
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //// Gradient Declarations
+    NSArray* gradient2Colors = [NSArray arrayWithObjects:
+                                (id)[UIColor lightGrayColor].CGColor,
+                                (id)[UIColor colorWithRed: 0.865 green: 0.865 blue: 0.865 alpha: 1].CGColor,
+                                (id)[UIColor whiteColor].CGColor, nil];
+    CGFloat gradient2Locations[] = {0, 0.33, 1};
+    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient2Colors, gradient2Locations);
+    
+    //// Shadow Declarations
+    UIColor* shadow = [UIColor blackColor];
+    CGSize shadowOffset = CGSizeMake(0.1, -0.1);
+    CGFloat shadowBlurRadius = 2;
+    
+    //// Bezier Drawing
+    UIBezierPath* bezierPath = [UIBezierPath bezierPath];
+    [bezierPath moveToPoint: CGPointMake(0+x, -0+y)];
+    [bezierPath addLineToPoint: CGPointMake(0+x, 17+y)];
+    [bezierPath addLineToPoint: CGPointMake(12+x, 17+y)];
+    [bezierPath addLineToPoint: CGPointMake(20+x, 28+y)];
+    [bezierPath addLineToPoint: CGPointMake(28+x, 17+y)];
+    [bezierPath addLineToPoint: CGPointMake(40+x, 17+y)];
+    [bezierPath addLineToPoint: CGPointMake(40+x, -0+y)];
+    [bezierPath addLineToPoint: CGPointMake(0+x, -0+y)];
+    [bezierPath closePath];
+    bezierPath.miterLimit = 0;
+    
+    bezierPath.lineJoinStyle = kCGLineJoinRound;
+    
+    CGContextSaveGState(context);
+    [bezierPath addClip];
+    CGContextDrawLinearGradient(context, gradient2, CGPointMake(20+x, -0+y), CGPointMake(20+x, 28+y), 0);
+    CGContextRestoreGState(context);
+    
+    ////// Bezier Inner Shadow
+    CGRect bezierBorderRect = CGRectInset([bezierPath bounds], -shadowBlurRadius, -shadowBlurRadius);
+    bezierBorderRect = CGRectOffset(bezierBorderRect, -shadowOffset.width, -shadowOffset.height);
+    bezierBorderRect = CGRectInset(CGRectUnion(bezierBorderRect, [bezierPath bounds]), -1, -1);
+    
+    UIBezierPath* bezierNegativePath = [UIBezierPath bezierPathWithRect: bezierBorderRect];
+    [bezierNegativePath appendPath: bezierPath];
+    bezierNegativePath.usesEvenOddFillRule = YES;
+    
+    CGContextSaveGState(context);
+    {
+        CGFloat xOffset = shadowOffset.width + round(bezierBorderRect.size.width);
+        CGFloat yOffset = shadowOffset.height;
+        CGContextSetShadowWithColor(context,
+                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
+                                    shadowBlurRadius,
+                                    shadow.CGColor);
+        
+        [bezierPath addClip];
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(bezierBorderRect.size.width), 0);
+        [bezierNegativePath applyTransform: transform];
+        [[UIColor grayColor] setFill];
+        [bezierNegativePath fill];
+    }
+    CGContextRestoreGState(context);
+    
+    
+    
+    //// Cleanup
+    CGGradientRelease(gradient2);
+    CGColorSpaceRelease(colorSpace);
+    
+
+}
+
 - (void)drawRect:(CGRect)rect{
     opaquecolor=self.delegate.graphcolor;
     if (self.delegate.graphcolor==nil) {
@@ -158,10 +231,11 @@
             
             [point.xlabel drawAtPoint:CGPointMake(xpoint, self.frame.size.height-20) withFont:[UIFont fontWithName:@"Futura" size:12]];
             int yvalueoffset;
-            yvalueoffset=0-20;
+            yvalueoffset=0-30;
             
+            
+            [self drawYIndicatorAtPointX:xpoint-15 Y:ypoint-30];
             [[point.yvalue stringValue] drawAtPoint:CGPointMake(xpoint,ypoint+yvalueoffset) withFont:[UIFont fontWithName:@"Futura" size:12]];
-            
             if (i!=0) {
                 CGContextSaveGState(context);
                 CGContextSetStrokeColorWithColor(context, opaquecolor.CGColor);
@@ -190,6 +264,7 @@
                 }
                 
             }
+            
             f++;
         }
         

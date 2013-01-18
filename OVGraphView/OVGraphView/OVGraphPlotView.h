@@ -23,7 +23,7 @@
    
 
 }
-
+-(void)drawYIndicatorAtPointX:(int)x Y:(int)y;
 -(void)setPlotViewPoints:(NSArray *)points Reversed:(BOOL)reversebool;
 @property(nonatomic)NSArray *plotpoints;
 @property(nonatomic)OVGraphView *delegate;
