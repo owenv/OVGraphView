@@ -23,83 +23,11 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self setNeedsDisplay];
+    //[self setNeedsDisplay];
 }
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
--(void)drawYIndicatorAtPointX:(int)x Y:(int)y{
-    //// General Declarations
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    //// Gradient Declarations
-    NSArray* gradient2Colors = [NSArray arrayWithObjects:
-                                (id)[UIColor lightGrayColor].CGColor,
-                                (id)[UIColor colorWithRed: 0.865 green: 0.865 blue: 0.865 alpha: 1].CGColor,
-                                (id)[UIColor whiteColor].CGColor, nil];
-    CGFloat gradient2Locations[] = {0, 0.33, 1};
-    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient2Colors, gradient2Locations);
-    
-    //// Shadow Declarations
-    UIColor* shadow = [UIColor blackColor];
-    CGSize shadowOffset = CGSizeMake(0.1, -0.1);
-    CGFloat shadowBlurRadius = 2;
-    
-    //// Bezier Drawing
-    UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-    [bezierPath moveToPoint: CGPointMake(0+x, -0+y)];
-    [bezierPath addLineToPoint: CGPointMake(0+x, 17+y)];
-    [bezierPath addLineToPoint: CGPointMake(12+x, 17+y)];
-    [bezierPath addLineToPoint: CGPointMake(20+x, 28+y)];
-    [bezierPath addLineToPoint: CGPointMake(28+x, 17+y)];
-    [bezierPath addLineToPoint: CGPointMake(40+x, 17+y)];
-    [bezierPath addLineToPoint: CGPointMake(40+x, -0+y)];
-    [bezierPath addLineToPoint: CGPointMake(0+x, -0+y)];
-    [bezierPath closePath];
-    bezierPath.miterLimit = 0;
-    
-    bezierPath.lineJoinStyle = kCGLineJoinRound;
-    
-    CGContextSaveGState(context);
-    [bezierPath addClip];
-    CGContextDrawLinearGradient(context, gradient2, CGPointMake(20+x, -0+y), CGPointMake(20+x, 28+y), 0);
-    CGContextRestoreGState(context);
-    
-    ////// Bezier Inner Shadow
-    CGRect bezierBorderRect = CGRectInset([bezierPath bounds], -shadowBlurRadius, -shadowBlurRadius);
-    bezierBorderRect = CGRectOffset(bezierBorderRect, -shadowOffset.width, -shadowOffset.height);
-    bezierBorderRect = CGRectInset(CGRectUnion(bezierBorderRect, [bezierPath bounds]), -1, -1);
-    
-    UIBezierPath* bezierNegativePath = [UIBezierPath bezierPathWithRect: bezierBorderRect];
-    [bezierNegativePath appendPath: bezierPath];
-    bezierNegativePath.usesEvenOddFillRule = YES;
-    
-    CGContextSaveGState(context);
-    {
-        CGFloat xOffset = shadowOffset.width + round(bezierBorderRect.size.width);
-        CGFloat yOffset = shadowOffset.height;
-        CGContextSetShadowWithColor(context,
-                                    CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    shadowBlurRadius,
-                                    shadow.CGColor);
-        
-        [bezierPath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(bezierBorderRect.size.width), 0);
-        [bezierNegativePath applyTransform: transform];
-        [[UIColor grayColor] setFill];
-        [bezierNegativePath fill];
-    }
-    CGContextRestoreGState(context);
-    
-    
-    
-    //// Cleanup
-    CGGradientRelease(gradient2);
-    CGColorSpaceRelease(colorSpace);
-    
-
-}
 
 - (void)drawRect:(CGRect)rect{
     opaquecolor=self.delegate.graphcolor;
@@ -205,7 +133,7 @@
         for (OVGraphViewPoint *point in _plotpoints) {
             int xpoint;
             int ypoint;
-            xpoint=(spacebetweenpoints*i);
+            xpoint=(spacebetweenpoints*i)+18;
             
             
             
@@ -233,9 +161,11 @@
             int yvalueoffset;
             yvalueoffset=0-30;
             
+            OVGraphYIndicatorView *ind=[[OVGraphYIndicatorView alloc]initWithFrame:CGRectMake(xpoint-15, ypoint-30, 40, 28)];
+            ind.yValueLabel.text=[point.yvalue stringValue];
+            [self addSubview:ind];
+           // [self drawYIndicatorAtPointX:xpoint-15 Y:ypoint-30];
             
-            [self drawYIndicatorAtPointX:xpoint-15 Y:ypoint-30];
-            [[point.yvalue stringValue] drawAtPoint:CGPointMake(xpoint,ypoint+yvalueoffset) withFont:[UIFont fontWithName:@"Futura" size:12]];
             if (i!=0) {
                 CGContextSaveGState(context);
                 CGContextSetStrokeColorWithColor(context, opaquecolor.CGColor);
@@ -252,14 +182,14 @@
         
         CGContextSaveGState(context);
         OVGraphViewPoint *first=[_plotpoints objectAtIndex:0];
-        CGContextMoveToPoint(context, 0,self.frame.size.height-(([first.yvalue intValue]*yscale)+yscale)+5 );
-        CGContextAddLineToPoint(context, 0, self.frame.size.height-(([first.yvalue intValue]*yscale)+yscale)+5);
+        CGContextMoveToPoint(context, 23,self.frame.size.height);
+        CGContextAddLineToPoint(context, 23, self.frame.size.height-(([first.yvalue intValue]*yscale)+yscale)+5);
         int f=0;
         for (OVGraphViewPoint *thepoint in _plotpoints) {
             if (f!=0) {
-                CGContextAddLineToPoint(context, (spacebetweenpoints*f)+5, self.frame.size.height-(([thepoint.yvalue intValue]*yscale)+yscale)+5);
+                CGContextAddLineToPoint(context, (spacebetweenpoints*f)+23, self.frame.size.height-(([thepoint.yvalue intValue]*yscale)+yscale)+5);
                 if (f==[_plotpoints count]-1) {
-                    CGContextAddLineToPoint(context,(spacebetweenpoints*f)+5 , self.frame.size.height-20);
+                    CGContextAddLineToPoint(context,(spacebetweenpoints*f)+23 , self.frame.size.height-20);
                     CGContextAddLineToPoint(context, self.frame.size.width, self.frame.size.height-20);
                 }
                 
@@ -269,8 +199,10 @@
         }
         
         
-        CGContextAddLineToPoint(context, self.frame.size.width, 0);
+       CGContextAddLineToPoint(context, self.frame.size.width, 0);
         CGContextAddLineToPoint(context, 0, 0);
+        CGContextAddLineToPoint(context, 0, self.frame.size.height-20);
+        CGContextAddLineToPoint(context, 23, self.frame.size.height-20);
 
         CGContextClosePath(context);
         CGContextAddRect(context, CGContextGetClipBoundingBox(context));

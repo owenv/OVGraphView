@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8282322716BDDB94009955FC /* OVGraphYIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282322616BDDB94009955FC /* OVGraphYIndicatorView.m */; };
 		829713CF15D2FDB100F1B0DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829713CE15D2FDB100F1B0DF /* UIKit.framework */; };
 		829713D115D2FDB100F1B0DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829713D015D2FDB100F1B0DF /* Foundation.framework */; };
 		829713D315D2FDB100F1B0DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 829713D215D2FDB100F1B0DF /* CoreGraphics.framework */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8282322516BDDB94009955FC /* OVGraphYIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphYIndicatorView.h; sourceTree = "<group>"; };
+		8282322616BDDB94009955FC /* OVGraphYIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphYIndicatorView.m; sourceTree = "<group>"; };
 		829713CA15D2FDB100F1B0DF /* OVGraphView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OVGraphView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		829713CE15D2FDB100F1B0DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		829713D015D2FDB100F1B0DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +126,8 @@
 			children = (
 				829713EC15D2FEBD00F1B0DF /* OVGraphPlotView.h */,
 				829713ED15D2FEBD00F1B0DF /* OVGraphPlotView.m */,
+				8282322516BDDB94009955FC /* OVGraphYIndicatorView.h */,
+				8282322616BDDB94009955FC /* OVGraphYIndicatorView.m */,
 				82DD965615D731EF001FA35C /* OVGraphView.h */,
 				82DD965715D731EF001FA35C /* OVGraphView.m */,
 				82DD965B15D73495001FA35C /* OVGraphViewPoint.h */,
@@ -204,6 +209,7 @@
 				829713F215D2FFA800F1B0DF /* OVGraphDemoViewController.m in Sources */,
 				82DD965915D731EF001FA35C /* OVGraphView.m in Sources */,
 				82DD965D15D73495001FA35C /* OVGraphViewPoint.m in Sources */,
+				8282322716BDDB94009955FC /* OVGraphYIndicatorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
