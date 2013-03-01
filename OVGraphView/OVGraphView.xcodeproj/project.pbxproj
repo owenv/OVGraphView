@@ -20,8 +20,9 @@
 		82BD223015FD2681003AC05B /* graphindicator2.png in Resources */ = {isa = PBXBuildFile; fileRef = 82BD222E15FD2681003AC05B /* graphindicator2.png */; };
 		82BD223115FD2681003AC05B /* graphindicator2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82BD222F15FD2681003AC05B /* graphindicator2@2x.png */; };
 		82DA9693160EA987009CA462 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 82DA9692160EA987009CA462 /* Default-568h@2x.png */; };
-		82DD965915D731EF001FA35C /* OVGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DD965715D731EF001FA35C /* OVGraphView.m */; };
+		82DD965915D731EF001FA35C /* OVPlotScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DD965715D731EF001FA35C /* OVPlotScrollView.m */; };
 		82DD965D15D73495001FA35C /* OVGraphViewPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 82DD965C15D73495001FA35C /* OVGraphViewPoint.m */; };
+		82FF1C7816BDE891004B6A72 /* OVGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FF1C7716BDE891004B6A72 /* OVGraphView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,10 +46,12 @@
 		82BD222E15FD2681003AC05B /* graphindicator2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graphindicator2.png; sourceTree = "<group>"; };
 		82BD222F15FD2681003AC05B /* graphindicator2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "graphindicator2@2x.png"; sourceTree = "<group>"; };
 		82DA9692160EA987009CA462 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		82DD965615D731EF001FA35C /* OVGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphView.h; sourceTree = "<group>"; };
-		82DD965715D731EF001FA35C /* OVGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphView.m; sourceTree = "<group>"; };
+		82DD965615D731EF001FA35C /* OVPlotScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVPlotScrollView.h; sourceTree = "<group>"; };
+		82DD965715D731EF001FA35C /* OVPlotScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVPlotScrollView.m; sourceTree = "<group>"; };
 		82DD965B15D73495001FA35C /* OVGraphViewPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphViewPoint.h; sourceTree = "<group>"; };
 		82DD965C15D73495001FA35C /* OVGraphViewPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphViewPoint.m; sourceTree = "<group>"; };
+		82FF1C7616BDE891004B6A72 /* OVGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OVGraphView.h; sourceTree = "<group>"; };
+		82FF1C7716BDE891004B6A72 /* OVGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OVGraphView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,10 +131,12 @@
 				829713ED15D2FEBD00F1B0DF /* OVGraphPlotView.m */,
 				8282322516BDDB94009955FC /* OVGraphYIndicatorView.h */,
 				8282322616BDDB94009955FC /* OVGraphYIndicatorView.m */,
-				82DD965615D731EF001FA35C /* OVGraphView.h */,
-				82DD965715D731EF001FA35C /* OVGraphView.m */,
+				82DD965615D731EF001FA35C /* OVPlotScrollView.h */,
+				82DD965715D731EF001FA35C /* OVPlotScrollView.m */,
 				82DD965B15D73495001FA35C /* OVGraphViewPoint.h */,
 				82DD965C15D73495001FA35C /* OVGraphViewPoint.m */,
+				82FF1C7616BDE891004B6A72 /* OVGraphView.h */,
+				82FF1C7716BDE891004B6A72 /* OVGraphView.m */,
 			);
 			name = OVGraphView;
 			sourceTree = "<group>";
@@ -207,9 +212,10 @@
 				829713DF15D2FDB100F1B0DF /* OVAppDelegate.m in Sources */,
 				829713EE15D2FEBD00F1B0DF /* OVGraphPlotView.m in Sources */,
 				829713F215D2FFA800F1B0DF /* OVGraphDemoViewController.m in Sources */,
-				82DD965915D731EF001FA35C /* OVGraphView.m in Sources */,
+				82DD965915D731EF001FA35C /* OVPlotScrollView.m in Sources */,
 				82DD965D15D73495001FA35C /* OVGraphViewPoint.m in Sources */,
 				8282322716BDDB94009955FC /* OVGraphYIndicatorView.m in Sources */,
+				82FF1C7816BDE891004B6A72 /* OVGraphView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

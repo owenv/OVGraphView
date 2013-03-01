@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "OVGraphViewPoint.h"
 #import "OVGraphYIndicatorView.h"
-@class OVGraphView;
+@class OVPlotScrollView;
 @interface OVGraphPlotView : UIView <UIScrollViewDelegate>{
     int yscale;
     int spacebetweenpoints;
@@ -26,6 +26,6 @@
 }
 -(void)setPlotViewPoints:(NSArray *)points Reversed:(BOOL)reversebool;
 @property(nonatomic)NSArray *plotpoints;
-@property(nonatomic)OVGraphView *delegate;
+@property(nonatomic)OVPlotScrollView *delegate;
 
 @end

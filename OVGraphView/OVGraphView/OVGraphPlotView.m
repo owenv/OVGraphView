@@ -7,7 +7,7 @@
 //
 
 #import "OVGraphPlotView.h"
-#import "OVGraphView.h"
+#import "OVPlotScrollView.h"
 @implementation OVGraphPlotView
 
 - (id)initWithFrame:(CGRect)frame

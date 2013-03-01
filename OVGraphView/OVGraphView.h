@@ -2,20 +2,17 @@
 //  OVGraphView.h
 //  OVGraphView
 //
-//  Created by Owen Voorhees on 8/11/12.
-//  Copyright (c) 2012 Owen Voorhees. All rights reserved.
+//  Created by Owen Voorhees on 2/2/13.
+//  Copyright (c) 2013 Owen Voorhees. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "OVGraphPlotView.h"
-@interface OVGraphView : UIScrollView {
-    OVGraphPlotView *plotview;
-}
-
+#import "OVPlotScrollView.h"
+@interface OVGraphView : UIView
 -(id)initWithFrame:(CGRect)frame ContentSize:(CGSize)size;
 -(void)setPoints:(NSArray *)points;
--(BOOL)shouldreverse;
--(UIColor *)plotViewColor;
-@property(nonatomic)BOOL reverse;
+
+@property(nonatomic)OVPlotScrollView *plotContainer;
+@property()BOOL reverse;
 @property(nonatomic)UIColor *graphcolor;
 @end

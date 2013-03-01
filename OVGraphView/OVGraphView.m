@@ -2,62 +2,42 @@
 //  OVGraphView.m
 //  OVGraphView
 //
-//  Created by Owen Voorhees on 8/11/12.
-//  Copyright (c) 2012 Owen Voorhees. All rights reserved.
+//  Created by Owen Voorhees on 2/2/13.
+//  Copyright (c) 2013 Owen Voorhees. All rights reserved.
 //
 
 #import "OVGraphView.h"
 
-
-
 @implementation OVGraphView
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setOpaque:NO];
-        [self setBackgroundColor:[UIColor whiteColor]];
+        // Initialization code
     }
     return self;
 }
 -(id)initWithFrame:(CGRect)frame ContentSize:(CGSize)size{
     self = [super initWithFrame:frame];
     if (self) {
-        [self setContentSize:size];
-        self.showsHorizontalScrollIndicator=NO;
-        [self setOpaque:NO];
-        [self setBackgroundColor:[UIColor whiteColor]];
-        plotview=[[OVGraphPlotView alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        plotview.delegate=self;
-        self.scrollEnabled=YES;
-        self.delegate=plotview;
-        [self addSubview:plotview];
-        if (_reverse) {
-            [self scrollRectToVisible:CGRectMake(self.contentSize.width-20, 0, 20, 20) animated:YES];
-
-        }
+        _plotContainer=[[OVPlotScrollView alloc]initWithFrame:frame ContentSize:size];
+        [self addSubview:_plotContainer];
     }
     return self;
+
 }
--(BOOL)shouldreverse{
-    return _reverse;
-}
-
-
-
 -(void)setPoints:(NSArray *)points{
-    [plotview setPlotViewPoints:points Reversed:_reverse];
-    if (_reverse) {
-        [self scrollRectToVisible:CGRectMake(self.contentSize.width-20, 0, 20, 20) animated:YES];
-        
-    }
+    [_plotContainer setPoints:points];
 }
--(UIColor *)plotViewColor{
-    return _graphcolor;
-}
+
+/*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect{
-    
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
 }
+*/
+
 @end
