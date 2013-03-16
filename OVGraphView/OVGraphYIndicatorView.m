@@ -15,7 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setOpaque:NO];
-        _yValueLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 40, 18)];
+        _yValueLabel=[[UILabel alloc]initWithFrame:CGRectMake(0, 1, 40, 18)];
         _yValueLabel.font=[UIFont fontWithName:@"Futura" size:12];
         _yValueLabel.textAlignment=UITextAlignmentCenter;
         _yValueLabel.backgroundColor=[UIColor clearColor];
