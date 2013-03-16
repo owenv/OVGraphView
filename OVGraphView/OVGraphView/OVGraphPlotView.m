@@ -245,7 +245,7 @@
             d=[pt.yvalue intValue];
         }
     }
-    yscale=(self.frame.size.height-40)/d;
+    yscale=(self.frame.size.height-60)/d;
     [self setNeedsDisplay];
     
 

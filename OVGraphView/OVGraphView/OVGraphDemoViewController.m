@@ -25,6 +25,7 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     OVGraphView *graphview=[[OVGraphView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, 300) ContentSize:CGSizeMake(960, 300)];
     graphview.plotContainer.reverse=YES;
