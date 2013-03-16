@@ -28,45 +28,42 @@
 - (void)drawRect:(CGRect)rect
 {
     //// General Declarations
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    //// Gradient Declarations
-    NSArray* gradient2Colors = [NSArray arrayWithObjects:
-                                (id)[UIColor lightGrayColor].CGColor,
-                                (id)[UIColor colorWithRed: 0.865 green: 0.865 blue: 0.865 alpha: 1].CGColor,
-                                (id)[UIColor whiteColor].CGColor, nil];
-    CGFloat gradient2Locations[] = {0, 0.33, 1};
-    CGGradientRef gradient2 = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)gradient2Colors, gradient2Locations);
+    //// Color Declarations
+    UIColor* fillColor = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    CGFloat fillColorHSBA[4];
+    [fillColor getHue: &fillColorHSBA[0] saturation: &fillColorHSBA[1] brightness: &fillColorHSBA[2] alpha: &fillColorHSBA[3]];
+    
+    UIColor* verylightgray = [UIColor colorWithHue: fillColorHSBA[0] saturation: fillColorHSBA[1] brightness: 0.97 alpha: fillColorHSBA[3]];
+    UIColor* strokeColor = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 1];
     
     //// Shadow Declarations
-    UIColor* shadow = [UIColor blackColor];
-    CGSize shadowOffset = CGSizeMake(0.1, -0.1);
-    CGFloat shadowBlurRadius = 2;
+    UIColor* shadow2 = strokeColor;
+    CGSize shadow2Offset = CGSizeMake(0.1, -0.1);
+    CGFloat shadow2BlurRadius = 1.5;
     
     //// Bezier Drawing
     UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-    [bezierPath moveToPoint: CGPointMake(0, -0)];
-    [bezierPath addLineToPoint: CGPointMake(0, 17)];
-    [bezierPath addLineToPoint: CGPointMake(12, 17)];
-    [bezierPath addLineToPoint: CGPointMake(20, 28)];
-    [bezierPath addLineToPoint: CGPointMake(28, 17)];
-    [bezierPath addLineToPoint: CGPointMake(40, 17)];
-    [bezierPath addLineToPoint: CGPointMake(40, -0)];
-    [bezierPath addLineToPoint: CGPointMake(0, -0)];
+    [bezierPath moveToPoint: CGPointMake(40, 4)];
+    [bezierPath addLineToPoint: CGPointMake(40, 14)];
+    [bezierPath addCurveToPoint: CGPointMake(36, 18) controlPoint1: CGPointMake(40, 16.21) controlPoint2: CGPointMake(38.21, 18)];
+    [bezierPath addLineToPoint: CGPointMake(24.8, 18)];
+    [bezierPath addLineToPoint: CGPointMake(20, 27)];
+    [bezierPath addLineToPoint: CGPointMake(15.2, 18)];
+    [bezierPath addLineToPoint: CGPointMake(4, 18)];
+    [bezierPath addCurveToPoint: CGPointMake(0, 14) controlPoint1: CGPointMake(1.79, 18) controlPoint2: CGPointMake(-0, 16.21)];
+    [bezierPath addLineToPoint: CGPointMake(0, 4)];
+    [bezierPath addCurveToPoint: CGPointMake(4, 0) controlPoint1: CGPointMake(0, 1.79) controlPoint2: CGPointMake(1.79, 0)];
+    [bezierPath addLineToPoint: CGPointMake(36, 0)];
+    [bezierPath addCurveToPoint: CGPointMake(40, 4) controlPoint1: CGPointMake(38.21, 0) controlPoint2: CGPointMake(40, 1.79)];
     [bezierPath closePath];
-    bezierPath.miterLimit = 0;
-    
-    bezierPath.lineJoinStyle = kCGLineJoinRound;
-    
-    CGContextSaveGState(context);
-    [bezierPath addClip];
-    CGContextDrawLinearGradient(context, gradient2, CGPointMake(20, -0), CGPointMake(20, 28), 0);
-    CGContextRestoreGState(context);
+    [verylightgray setFill];
+    [bezierPath fill];
     
     ////// Bezier Inner Shadow
-    CGRect bezierBorderRect = CGRectInset([bezierPath bounds], -shadowBlurRadius, -shadowBlurRadius);
-    bezierBorderRect = CGRectOffset(bezierBorderRect, -shadowOffset.width, -shadowOffset.height);
+    CGRect bezierBorderRect = CGRectInset([bezierPath bounds], -shadow2BlurRadius, -shadow2BlurRadius);
+    bezierBorderRect = CGRectOffset(bezierBorderRect, -shadow2Offset.width, -shadow2Offset.height);
     bezierBorderRect = CGRectInset(CGRectUnion(bezierBorderRect, [bezierPath bounds]), -1, -1);
     
     UIBezierPath* bezierNegativePath = [UIBezierPath bezierPathWithRect: bezierBorderRect];
@@ -75,12 +72,12 @@
     
     CGContextSaveGState(context);
     {
-        CGFloat xOffset = shadowOffset.width + round(bezierBorderRect.size.width);
-        CGFloat yOffset = shadowOffset.height;
+        CGFloat xOffset = shadow2Offset.width + round(bezierBorderRect.size.width);
+        CGFloat yOffset = shadow2Offset.height;
         CGContextSetShadowWithColor(context,
                                     CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
-                                    shadowBlurRadius,
-                                    shadow.CGColor);
+                                    shadow2BlurRadius,
+                                    shadow2.CGColor);
         
         [bezierPath addClip];
         CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(bezierBorderRect.size.width), 0);
@@ -92,9 +89,7 @@
     
     
     
-    //// Cleanup
-    CGGradientRelease(gradient2);
-    CGColorSpaceRelease(colorSpace);
+
     
 
 }
