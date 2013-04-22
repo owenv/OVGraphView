@@ -183,7 +183,7 @@
         CGContextSaveGState(context);
         OVGraphViewPoint *first=[_plotpoints objectAtIndex:0];
         CGContextMoveToPoint(context, 23,self.frame.size.height);
-        CGContextAddLineToPoint(context, 23, self.frame.size.height-(([first.yvalue floatValue]*yscale)+20)+5);
+        CGContextAddLineToPoint(context, 23, self.frame.size.height-(([first.yvalue floatValue]*yscale)+25)+5);
         int f=0;
         for (OVGraphViewPoint *thepoint in _plotpoints) {
             if (f!=0) {
