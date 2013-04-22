@@ -140,9 +140,9 @@
             
             
             
-            ypoint=self.frame.size.height-(([point.yvalue intValue]*yscale)+yscale);
+            ypoint=self.frame.size.height-(([point.yvalue floatValue]*yscale)+25);
           //  NSLog(@"x:%d",xpoint);
-          //  NSLog(@"y:%d",ypoint);
+           // NSLog(@"y:%d",ypoint);
            // NSLog(@"%d%d",spacebetweenpoints,yscale);
             CGContextSaveGState(context);
             CGContextSetFillColorWithColor(context, opaquecolor.CGColor);
@@ -183,11 +183,11 @@
         CGContextSaveGState(context);
         OVGraphViewPoint *first=[_plotpoints objectAtIndex:0];
         CGContextMoveToPoint(context, 23,self.frame.size.height);
-        CGContextAddLineToPoint(context, 23, self.frame.size.height-(([first.yvalue intValue]*yscale)+yscale)+5);
+        CGContextAddLineToPoint(context, 23, self.frame.size.height-(([first.yvalue floatValue]*yscale)+20)+5);
         int f=0;
         for (OVGraphViewPoint *thepoint in _plotpoints) {
             if (f!=0) {
-                CGContextAddLineToPoint(context, (spacebetweenpoints*f)+23, self.frame.size.height-(([thepoint.yvalue intValue]*yscale)+yscale)+5);
+                CGContextAddLineToPoint(context, (spacebetweenpoints*f)+23, self.frame.size.height-(([thepoint.yvalue floatValue]*yscale)+20));
                 if (f==[_plotpoints count]-1) {
                     CGContextAddLineToPoint(context,(spacebetweenpoints*f)+23 , self.frame.size.height-20);
                     CGContextAddLineToPoint(context, self.frame.size.width, self.frame.size.height-20);
@@ -241,8 +241,8 @@
     spacebetweenpoints=self.frame.size.width/[points count];
     int d=0;
     for (OVGraphViewPoint *pt in points) {
-        if ([pt.yvalue intValue]>d) {
-            d=[pt.yvalue intValue];
+        if ([pt.yvalue floatValue]>d) {
+            d=[pt.yvalue floatValue];
         }
     }
     yscale=(self.frame.size.height-60)/d;
